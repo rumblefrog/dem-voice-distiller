@@ -77,7 +77,7 @@ where
     fn read_mstring(&mut self, len: usize) -> IOResult<String> {
         let mut buf = vec![0; len];
 
-        // Capacity array that's not pre-filled with 0's
+        // Capacity vec that's not pre-filled with 0's
         let mut str_vec = Vec::with_capacity(len);
 
         self.read_exact(&mut buf)?;

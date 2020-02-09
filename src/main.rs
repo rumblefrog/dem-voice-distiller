@@ -8,6 +8,7 @@ use structopt::StructOpt;
 
 mod demo_file;
 mod demo_header;
+mod demo_protocol;
 mod errors;
 
 use errors::Result;
