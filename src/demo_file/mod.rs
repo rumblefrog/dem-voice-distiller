@@ -60,6 +60,15 @@ where
 
         // 1072 offset
     }
+
+    // fn seek_data(&mut self) {
+    //     // Since fields are fixed-size we can jump to a constant offset for data
+    //     self.cursor.seek(SeekFrom::Start(1072));
+    // }
+
+    // fn read_message(&mut self) {
+        
+    // }
 }
 
 trait ReadMemoryString {
