@@ -1,6 +1,6 @@
-struct DemoHeader {
+pub struct DemoHeader {
     /// 8 characters, should be "HL2DEMO"+NULL
-    header: String,
+    pub header: String,
 
     /// Demo protocol version (stored in little endian)
     pub demo_protocol: i32,
@@ -12,7 +12,7 @@ struct DemoHeader {
     pub server_name: String,
 
     /// Client name (260 characters long)
-    pub client_name String,
+    pub client_name: String,
 
     /// Server map name (260 characters long)
     pub map_name: String,
