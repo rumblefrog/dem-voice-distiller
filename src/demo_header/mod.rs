@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct DemoHeader {
     /// 8 characters, should be "HL2DEMO"+NULL
     pub header: String,

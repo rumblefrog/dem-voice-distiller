@@ -9,7 +9,6 @@ use std::io::{
 use byteorder::{
     ReadBytesExt,
     LittleEndian,
-    ByteOrder,
 };
 
 use crate::errors::{
@@ -19,11 +18,9 @@ use crate::errors::{
 
 use crate::demo_header::DemoHeader;
 
-struct DemoFile<T> {
+pub struct DemoFile<T> {
     /// A single source of reads
     cursor: Cursor<T>,
-
-    header_size: i32,
 }
 
 impl<T> DemoFile<T>
@@ -33,12 +30,12 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             cursor: Cursor::new(inner),
-            header_size: 0,
         }
     }
 
-    /// Rewind to the start & read
+    /// Read the demo file header
     pub fn header(&mut self) -> Result<DemoHeader> {
+        // Rewind to start
         self.cursor.seek(SeekFrom::Start(0))?;
 
         let header_magic = self.cursor.read_mstring(8)?;
@@ -60,6 +57,8 @@ where
             frames: self.cursor.read_i32::<LittleEndian>()?,
             signon_len: self.cursor.read_i32::<LittleEndian>()?,
         })
+
+        // 1072 offset
     }
 }
 
@@ -77,7 +76,9 @@ where
 {
     fn read_mstring(&mut self, len: usize) -> IOResult<String> {
         let mut buf = vec![0; len];
-        let mut str_vec = vec![0; len];
+
+        // Capacity array that's not pre-filled with 0's
+        let mut str_vec = Vec::with_capacity(len);
 
         self.read_exact(&mut buf)?;
 
